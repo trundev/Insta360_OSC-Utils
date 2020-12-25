@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  This file and the osc_cmd.js must be copied to the DCIM folder of Insta360 ONE R's SD card.
+  Then, connect to the camera's WiFi AP and open: http://192.168.42.1/DCIM/osc.html.
+-->
+<html lang='EN'>
+
+<head>
+  <title>Insta360 ONE R</title>
+  <style>
+    table, td, th {
+      border: thin solid black;
+      border-collapse: collapse;
+      padding: .3em;
+    }
+
+    th {
+      background-color: lightgray;
+    }
+
+    td.object {
+      padding: 0;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="osc_cmd.js"></script>
+
+  <H3><a href="https://www.insta360.com/product/insta360-oner_twin-edition">Insta360 ONE R</a> OSC control</H3>
+  <a href="Camera01/">Photos/Videos</a>
+  <p>
+    <button onclick="get_req(INFO_URL, res_ready, document.getElementById('osc_info'))">Get info</button>
+    <span id="osc_info"><i>&lt;OSC info&gt;</i></span>
+  </p>
+  <p>
+    <button onclick="post_req(STATE_URL, {}, res_ready, document.getElementById('osc_state'))">Get state</button>
+    <span id="osc_state"><i>&lt;OSC state&gt;</i></span>
+  </p>
+  <p>
+    <button
+      onclick="run_cmd('camera.getOptions', {optionNames:['iso']}, res_ready, document.getElementById('getOptions'))">camera.getOptions</button>
+    <span id="getOptions"><i>&lt;camera.getOptions&gt;</i></span>
+  </p>
+  <p>
+    <button
+      onclick="run_cmd('camera.getOptions', {optionNames:['dateTimeZone']}, res_ready, document.getElementById('dateTimeZone'))">dateTimeZone</button>
+    <span id="dateTimeZone"><i>&lt;dateTimeZone&gt;</i></span>
+  </p>
+  <p>
+    <button
+      onclick="run_cmd('camera.takePicture', null, res_ready, document.getElementById('takePicture'))">camera.takePicture</button>
+    <span id="takePicture"><i>&lt;camera.takePicture&gt;</i></span>
+  </p>
+  <p>
+    <button
+      onclick="run_cmd('camera.startCapture', null, res_ready, document.getElementById('startCapture'))">camera.startCapture</button>
+    <span id="startCapture"><i>&lt;camera.startCapture&gt;</i></span>
+  </p>
+  <p>
+    <button
+      onclick="run_cmd('camera.stopCapture', null, res_ready, document.getElementById('stopCapture'))">camera.stopCapture</button>
+    <span id="stopCapture"><i>&lt;camera.stopCapture&gt;</i></span>
+  </p>
+</body>
+
+</html>
