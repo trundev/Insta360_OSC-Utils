@@ -69,6 +69,18 @@ def run_command(conn, cmd_name, cmd_params):
         time.sleep(COMMAND_POLLING_DELAY)
     return res
 
+def connect(host=OSC_HOST):
+    """Connect to the OSC server"""
+    conn = http.client.HTTPConnection(host)
+    if VERBOSITY > 1:
+        print('Connecting to', conn.host)
+    conn.connect()
+    return conn
+
+def disconnect(conn):
+    """Disconnect from the OSC server"""
+    return conn.close()
+
 def main(argv):
     """Main entry point"""
     if not argv:
@@ -90,12 +102,9 @@ def main(argv):
             if not argv:
                 return print_help('Missing OSC command')
 
-        # ConnectMust have a connection
+        # Must have a connection
         if conn is None:
-            conn = http.client.HTTPConnection(OSC_HOST)
-            if VERBOSITY > 1:
-                print('Connecting to', conn.host)
-            conn.connect()
+            conn = connect()
 
         # Parse commands
         res = None
@@ -129,7 +138,7 @@ def main(argv):
                 print(json.dumps(res))
 
     if conn is not None:
-        conn.close()
+        disconnect(conn)
     return 0
 
 def print_help(err_msg=None):
